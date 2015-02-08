@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="assets/libs/ladda/0.9.4/ladda-themeless.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.js"></script>
+
+    <script type="text/javascript" src="assets/libs/angular-ui-router/0.2.11/angular-ui-router.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-spinner/0.5.1/angular-spinner.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script type="text/javascript" src="assets/libs/spin/2.0.1/spin.min.js"></script>
+    <script type="text/javascript" src="assets/libs/ladda/0.9.4/ladda.min.js"></script>
+    <script type="text/javascript" src="assets/libs/angular-ladda/0.1.9/angular-ladda.min.js"></script>
+    
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/app.routes.js"></script>
+
+</head>
+<body ng-app="acme" ng-controller="mainController">
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">OJUG Shiro Demo</a>
+    </div>
+    <div>
+        <p class="navbar-text navbar-right"><span ng-if="!isAuthenticated()">Not yet signed in.</span><span
+                ng-if="isAuthenticated()">{{username()}}</span></p>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="login">Login</a></li>
+            <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="changePassword">Change Password</a></li>
+            <li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="resetPassword">Reset</a></li>
+            <li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="signup">Create Account</a></li>
+            
+            <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="userSettings">User Settings</a></li>
+            <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="support">About</a></li>
+            <li ng-if="isAuthenticated()"><a href="#" ng-click="logout()">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
+    <div class="row">
+        <div class="container" ui-view></div>
+    </div>
+
+
+</div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Copyright 2015 &copy; Husband of Maude Moreno</p>
+    </div>
+</footer>
+
+</body>
+</html>
