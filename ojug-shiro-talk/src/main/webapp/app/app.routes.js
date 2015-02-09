@@ -22,7 +22,7 @@ angular.module('shirotalk.routes', ['ui.router'])
                     url: "/about",
                     templateUrl: 'app/components/about/about.html',
                     data: {
-                        needsAuthc: true
+                        needsAuthc: false
                     }
                 })
                 .state("dashboard", {

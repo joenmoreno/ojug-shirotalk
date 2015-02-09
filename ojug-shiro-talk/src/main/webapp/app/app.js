@@ -3,7 +3,8 @@
 angular.module('shirotalk', [ 
 	'ui.bootstrap',
 	'shirotalk.login',
-	'shirotalk.dashboard'
+	'shirotalk.dashboard',
+	'shirotalk.routes'
 ])
 
 .factory('AuthService',
@@ -66,7 +67,13 @@ angular.module('shirotalk', [
 
 
             $scope.logout = function () {
-                AuthService.logout();
+                AuthService.logout()
+	                .success(function (data) {
+	                    $state.go('login');
+	                })
+	                .error(function (error) {
+	                	$state.go('login');
+	                });
             };
 
     }]);
