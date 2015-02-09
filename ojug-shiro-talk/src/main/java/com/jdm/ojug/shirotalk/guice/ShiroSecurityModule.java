@@ -23,8 +23,9 @@ public class ShiroSecurityModule extends ShiroWebModule {
 		bindConstant().annotatedWith(Names.named("logout.redirectUrl")).to("/#/login");
 
 		addFilterChain("/api/helloworld", AUTHC_BASIC);
+		addFilterChain("/api/login", ANON);
 		
-		addFilterChain("/**", ANON);
+		addFilterChain("/**", AUTHC);
 
 	}
 

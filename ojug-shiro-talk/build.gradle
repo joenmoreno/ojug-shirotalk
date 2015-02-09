@@ -29,7 +29,7 @@ dependencies {
 	
 	compile group: 'com.google.inject', name: 'guice', version: '3.0'
 	compile group: 'com.google.inject.extensions', name: 'guice-servlet', version: '3.0'
-	compile group: 'com.google.inject.extensions', name: 'guice-persist', version: '3.0'
+	compile group: 'org.apache.onami', name:'org.apache.onami.persist', version:'1.0.1'
 	compile group: 'org.glassfish.jersey.core', name: 'jersey-common', version: '2.13'
 	
 	compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1'

@@ -36,11 +36,6 @@
     <div>
         <ul class="nav navbar-nav">
             <li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="login">Login</a></li>
-            <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="changePassword">Change Password</a></li>
-            <li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="resetPassword">Reset</a></li>
-            <li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="signup">Create Account</a></li>
-            
-            <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="userSettings">User Settings</a></li>
             <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="support">About</a></li>
             <li ng-if="isAuthenticated()"><a href="#" ng-click="logout()">Logout</a></li>
         </ul>
@@ -51,7 +46,6 @@
     <div class="row">
         <div class="container" ui-view></div>
     </div>
-
 
 </div>
 <footer class="footer">

@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebListener;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.GuiceServletContextListener;
 
 @WebListener
@@ -45,9 +44,10 @@ public class AppGuiceServletContextListener extends GuiceServletContextListener 
 	}
 
 	private static void createInjectorInstance(ServletContext servletContext) {
+		
 
 		MODULES.add(new AppServletModule());
-		MODULES.add(new JpaPersistModule("unit"));
+		MODULES.add(new AppPersistenceModule());
 		MODULES.add(new ShiroSecurityModule(servletContext));
 
 		INJECTOR = Guice.createInjector(MODULES);

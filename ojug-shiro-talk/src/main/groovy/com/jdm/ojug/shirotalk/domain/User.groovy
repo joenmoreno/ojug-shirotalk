@@ -12,6 +12,8 @@ import javax.persistence.OneToMany
 import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="SHIROTALK_USER")
 class User {
@@ -28,9 +30,11 @@ class User {
 	@Column(name="EMAIL", length=100, unique=true, nullable=false)
 	String email
 	
+	@JsonIgnore
 	@Column(name="PASSWORD", length=100, nullable=false)
 	String password
 	
+	@JsonIgnore
 	@Column(name="SALT", length=100, nullable=false)
 	String salt
 	
