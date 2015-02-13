@@ -1,7 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
+	<title>AngularJS Plunker</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="assets/libs/ladda/0.9.4/ladda-themeless.min.css">
@@ -23,39 +25,54 @@
     <script type="text/javascript" src="app/app.routes.js"></script>
     <script type="text/javascript" src="app/components/login/login-controller.js"></script>
     <script type="text/javascript" src="app/components/dashboard/dashboard-controller.js"></script>
-
+    <script type="text/javascript" src="app/components/user-management/user-management-controller.js"></script>
+    <script type="text/javascript" src="app/components/user-management/user-management-service.js"></script>
 </head>
+
 <body ng-app="shirotalk" ng-controller="mainController">
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="#">OJUG Shiro Demo</a>
-    </div>
-    <div>
-        <p class="navbar-text navbar-right"><span ng-if="!isAuthenticated()">Not yet signed in.</span><span
-                ng-if="isAuthenticated()">{{username()}}</span></p>
-    </div>
-    <div>
-        <ul class="nav navbar-nav">
-            <li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="login">Login</a></li>
-            <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="dashboard">Dashboard</a></li>
-            <li ui-sref-active="active"><a ui-sref="about">About</a></li>
-            <li ng-if="isAuthenticated()"><a href="#" ng-click="logout()">Logout</a></li>
-        </ul>
-    </div>
-</nav>
-<div class="container">
-
-    <div class="row">
-        <div class="container" ui-view></div>
-    </div>
-
-</div>
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted">Copyright 2015 &copy; Husband of Maude Moreno</p>
-    </div>
-</footer>
-
+	<nav class="navbar navbar-default" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">OJUG Shiro Demo</a>
+		</div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" collapse="isCollapsed">
+			<ul class="nav navbar-nav">
+				<li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="login">Login</a></li>
+			    <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="dashboard">Dashboard</a></li>
+				<li ui-sref-active="active" class="dropdown" ng-if="isAuthenticated() && hasRole('admin')">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a ui-sref="admin.usermanagement">User Management</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul>
+				</li>
+				<li ui-sref-active="active"><a ui-sref="about">About</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username()}} <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">My Account</a></li>
+						<li class="divider"></li>
+						<li><a href="#" ng-click="logout()">Logout</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="row">
+		<div class="container" ui-view></div>
+	</div>
+	<footer class="footer">
+	    <div class="container">
+	        <p class="text-muted">Copyright 2015 &copy; Husband of Maude Moreno</p>
+	    </div>
+	</footer>
 </body>
+
 </html>

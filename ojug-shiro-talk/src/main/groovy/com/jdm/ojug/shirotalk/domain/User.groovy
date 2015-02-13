@@ -8,11 +8,12 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
-import javax.persistence.OneToMany
+import javax.persistence.ManyToMany
 import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="SHIROTALK_USER")
@@ -20,7 +21,7 @@ class User {
 	
 	@Id
 	@Column(name="USER_ID")
-	@SequenceGenerator(name="USER_SEQUENCE", initialValue=1, allocationSize=10)
+	@SequenceGenerator(name="USER_SEQUENCE", sequenceName="USER_SEQUENCE", initialValue=1, allocationSize=10)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USER_SEQUENCE")
 	Long userId
 	
@@ -44,13 +45,21 @@ class User {
 	@Column(name="LAST_NAME", length=50)
 	String lastName
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@JsonIgnore
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable
 	(
 		name="USER_ROLE_JOIN",
 		joinColumns=[ @JoinColumn(name="USER_ID", referencedColumnName="USER_ID") ],
-		inverseJoinColumns=[ @JoinColumn(name="ROLE_ID", referencedColumnName="ROLE_ID", unique=true) ]
+		inverseJoinColumns=[ @JoinColumn(name="ROLE_ID", referencedColumnName="ROLE_ID") ]
 	)
 	List<Role> roles
+	
+	@JsonProperty
+	public List<String> getUserRoles() {
+		roles?.collect {role ->
+			role.code
+		}
+	}
 	
 }

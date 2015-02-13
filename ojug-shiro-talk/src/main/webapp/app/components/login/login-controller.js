@@ -10,7 +10,7 @@ angular.module('shirotalk.login', [])
                 AuthService.login($scope.credentials)
                     .success(function (data) {
                         $scope.config.loading = false;
-                        Session.createUser(data.username, data.firstName, data.email);
+                        Session.createUser(data.username, data.firstName, data.email, data.userRoles);
                         $state.go('dashboard');
 
                     })

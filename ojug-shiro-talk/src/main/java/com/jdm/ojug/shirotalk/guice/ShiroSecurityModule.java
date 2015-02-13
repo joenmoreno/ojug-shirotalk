@@ -27,7 +27,7 @@ public class ShiroSecurityModule extends ShiroWebModule {
 		addFilterChain("/api/login", ANON);
 		
 		addFilterChain("/**", AUTHC);
-
+		
 	}
 
 }

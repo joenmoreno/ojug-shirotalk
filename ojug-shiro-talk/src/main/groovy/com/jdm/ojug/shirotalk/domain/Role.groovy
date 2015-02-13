@@ -17,7 +17,7 @@ class Role {
 	@JsonIgnore
 	@Id
 	@Column(name="ROLE_ID")
-	@SequenceGenerator(name="ROLE_SEQUENCE", initialValue=1, allocationSize=10)
+	@SequenceGenerator(name="ROLE_SEQUENCE", sequenceName="ROLE_SEQUENCE", initialValue=1, allocationSize=10)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ROLE_SEQUENCE")
 	Long roleId
 	

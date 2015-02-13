@@ -4,11 +4,12 @@ angular.module('shirotalk', [
 	'ui.bootstrap',
 	'shirotalk.login',
 	'shirotalk.dashboard',
-	'shirotalk.routes'
+	'shirotalk.routes',
+	'shirotalk.user.management',
+	'shirotalk.user.management.service'
 ])
 
-.factory('AuthService',
-	function($http, Session, $state) {
+	.factory('AuthService', function($http, Session, $state) {
 		var authService = {};
 	
 		authService.login = function(credentials) {
@@ -23,6 +24,16 @@ angular.module('shirotalk', [
 			Session.destroy();
 			return $http.post('api/logout', {});
 		};
+		
+		authService.hasRole = function(role) {
+	        var i=0, len=Session.user.userRoles.length;
+	        for (; i<len; i++) {
+	            if (Session.user.userRoles[i].toUpperCase() === role.toUpperCase()) {
+	                return true;
+	            };
+	        };
+	        return false;
+		};
 	
 		return authService;
 	})
@@ -32,14 +43,15 @@ angular.module('shirotalk', [
             username: null,
             firstName: null,
             email: null,
-            accountStatus: null
+            userRoles: []
         };
         
-        this.createUser = function (username, firstName, email, accountStatus) {
+        this.createUser = function (username, firstName, email, roles) {
             this.user = {
                 username: username,
                 firstName: firstName,
-                email: email
+                email: email,
+                userRoles: roles ? roles : []
             };
         };
 
@@ -48,7 +60,8 @@ angular.module('shirotalk', [
             this.user = {
                 userId: null,
                 firstName: null,
-                email: null
+                email: null,
+                userRoles: []
             };
         };
         return this;
@@ -56,9 +69,14 @@ angular.module('shirotalk', [
 
 	.controller('mainController', ['$scope', '$state', 'AuthService', 'Session',
         function ($scope, $state, AuthService, Session) {
+			$scope.isCollapsed = true;
 
             $scope.isAuthenticated = function() {
                 return AuthService.isAuthenticated();
+            };
+            
+            $scope.hasRole = function(role) {
+            	return AuthService.hasRole(role);
             };
 
             $scope.username = function() {

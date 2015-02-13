@@ -47,15 +47,27 @@ class DataSeed {
 		Object salt = passwordUtil.generateSalt()
 		String encodedEncryptedPassword = passwordUtil.generatePassword(password, salt)
 
-		User joeSchmoeUser = new User(email: 'joenmoreno@gmail.com',
-		firstName: 'joe',
-		lastName: 'schmoe',
-		password: encodedEncryptedPassword,
-		salt: salt.toString(),
-		username: 'joeschmoe',
-		roles: [adminRole, userRole] as ArrayList)
+		User joeSchmoeUser = new User(email: 'joeschmoe@gmail.com',
+			firstName: 'joe',
+			lastName: 'schmoe',
+			password: encodedEncryptedPassword,
+			salt: salt.toString(),
+			username: 'joeschmoe',
+			roles: [adminRole, userRole] as ArrayList)
 
 		userDao.persistUser(joeSchmoeUser)
+		
+		salt = passwordUtil.generateSalt()
+		encodedEncryptedPassword = passwordUtil.generatePassword(password, salt)
+		User janeSchmoeUser = new User(email: 'janeschmoe@gmail.com',
+			firstName: 'jane',
+			lastName: 'schmoe',
+			password: encodedEncryptedPassword,
+			salt: salt.toString(),
+			username: 'janeschmoe',
+			roles: [userRole] as ArrayList)
+
+		userDao.persistUser(janeSchmoeUser)
 
 	}
 

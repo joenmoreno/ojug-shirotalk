@@ -1,5 +1,7 @@
 package com.jdm.ojug.shirotalk.dao
 
+import java.util.List;
+
 import javax.inject.Inject
 
 import org.apache.onami.persist.EntityManagerProvider
@@ -30,6 +32,12 @@ class UserDaoImpl implements UserDao {
 	@Transactional
 	public void persistUser(User user) {
 		em.get().persist(user)
+	}
+
+	@Override
+	@Transactional
+	public List<User> fetchAllUsers() {
+		return em.get().createQuery("from User").getResultList();
 	}
 
 }
