@@ -8,7 +8,7 @@ import com.jdm.ojug.shirotalk.dao.UserDao
 
 class AppSecurityProvider implements Provider<AppSecurityRealm> {
 
-	private Provider<UserDao> userDaoProvider
+	private final Provider<UserDao> userDaoProvider
 
 	@Inject
 	public AppSecurityProvider(Provider<UserDao> userDaoProvider) {

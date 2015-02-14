@@ -8,6 +8,8 @@ import com.jdm.ojug.shirotalk.dao.UserDao;
 import com.jdm.ojug.shirotalk.dao.UserDaoImpl;
 import com.jdm.ojug.shirotalk.services.MessageCreator;
 import com.jdm.ojug.shirotalk.services.MessageCreatorImpl;
+import com.jdm.ojug.shirotalk.services.UserService;
+import com.jdm.ojug.shirotalk.services.UserServiceImpl;
 
 public class AppServletModule extends ServletModule {
 	
@@ -17,6 +19,7 @@ public class AppServletModule extends ServletModule {
     	filter("/*").through(PersistenceFilter.class);
     	
     	bind(UserDao.class).to(UserDaoImpl.class);
+    	bind(UserService.class).to(UserServiceImpl.class);
     	bind(MessageCreator.class).to(MessageCreatorImpl.class);
         
         ShiroWebModule.bindGuiceFilter(binder());

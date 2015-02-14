@@ -20,17 +20,18 @@ import org.apache.shiro.subject.Subject
 import com.jdm.ojug.shirotalk.dao.UserDao
 import com.jdm.ojug.shirotalk.domain.User
 import com.jdm.ojug.shirotalk.domain.UsernamePasswordCredentials
+import com.jdm.ojug.shirotalk.services.UserService
 
 @Path("login")
 class LoginResource {
 
 	private static Logger logger = Logger.getLogger(LoginResource);
 	
-	private Provider<UserDao> userDao
-
+	private final UserService userService
+	
 	@Inject
-	public LoginResource(Provider<UserDao> userDao) {
-		this.userDao = userDao
+	public LoginResource(UserService userService) {
+		this.userService = userService
 	}
 
 	@POST
@@ -52,7 +53,7 @@ class LoginResource {
 		}
 
 		if(loginResult) {
-			User user = userDao.get().fetchUserByUsername(usernamePasswordCredentials.username)
+			User user = userService.fetchUserByUsername(usernamePasswordCredentials.username)
 			return Response.ok().entity(user).build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).build();
