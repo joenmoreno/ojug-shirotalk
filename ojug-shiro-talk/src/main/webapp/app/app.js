@@ -94,4 +94,18 @@ angular.module('shirotalk', [
 	                });
             };
 
-    }]);
+    }])
+    
+    .run(function ($rootScope, AuthService, Session, $state, $log) {
+
+        $rootScope.$on('$stateChangeStart',
+            function interceptor(event, toState, toParams, fromState, fromParams){
+                $log.debug('From State: ' + fromState.name);
+                $log.debug('To State: ' + toState.name);
+                if(toState.data.needsAuthc && !AuthService.isAuthenticated()) {
+                    event.preventDefault();
+                    $state.go('login');
+                }
+            }
+        );
+    });

@@ -1,6 +1,10 @@
-<div class="row">
+<div class="row" ng-init="loadUsers()">
 
-    <div class="panel panel-default">
+	<div ng-if="config.loading" class="alert alert-info" role="alert">Loading users...</div>	
+
+	<div ng-if="config.userFetchError" class="alert alert-danger" role="alert">There was a problem loading users.</div>
+
+    <div ng-if="!config.userFetchError && !config.loading" class="panel panel-default" ng-if="">
 
         <div class="panel-heading">User Management</div>
 
@@ -9,11 +13,13 @@
             	<th>First Name</th>
             	<th>Last Name</th>
             	<th>Username</th>
+            	<th>Roles</th>
             </tr>
             <tr ng-repeat="user in users">
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
                 <td>{{user.username}}</td>
+                <td>{{user.userRoles}}</td>
             </tr>
         </table>
     </div>

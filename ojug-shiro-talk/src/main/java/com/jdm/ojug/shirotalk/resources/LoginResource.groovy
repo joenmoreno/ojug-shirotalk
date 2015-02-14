@@ -9,6 +9,7 @@ import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
+import org.apache.log4j.Logger
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.IncorrectCredentialsException
 import org.apache.shiro.authc.LockedAccountException
@@ -23,6 +24,8 @@ import com.jdm.ojug.shirotalk.domain.UsernamePasswordCredentials
 @Path("login")
 class LoginResource {
 
+	private static Logger logger = Logger.getLogger(LoginResource);
+	
 	private Provider<UserDao> userDao
 
 	@Inject
@@ -39,11 +42,11 @@ class LoginResource {
 		try {
 			loginResult = tryLogin(usernamePasswordCredentials.username, usernamePasswordCredentials.password)
 		} catch (UnknownAccountException uae) {
-			System.out.println("There is no user with username of " + usernamePasswordCredentials.username);
+			logger.warn("There is no user with username of " + usernamePasswordCredentials.username);
 		} catch (IncorrectCredentialsException ice) {
-			System.out.println("Password for account " + usernamePasswordCredentials.username + " was incorrect!");
+			logger.warn("Password for account " + usernamePasswordCredentials.username + " was incorrect!");
 		} catch (LockedAccountException lae) {
-			System.out.println("The account for username " + usernamePasswordCredentials.username
+			logger.warn("The account for username " + usernamePasswordCredentials.username
 					+ " is locked.  "
 					+ "Please contact your administrator to unlock it.");
 		}
@@ -67,15 +70,8 @@ class LoginResource {
 
 			currentUser.login(token);
 
-			System.out.println("User ["
-					+ currentUser.getPrincipal().toString()
-					+ "] logged in successfully.");
-
-			return true;
-		} else {
-			return true; // already logged in
 		}
 
-		return false;
+		return true;
 	}
 }

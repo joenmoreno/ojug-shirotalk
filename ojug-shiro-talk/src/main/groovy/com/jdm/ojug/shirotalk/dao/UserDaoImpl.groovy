@@ -1,11 +1,10 @@
 package com.jdm.ojug.shirotalk.dao
 
-import java.util.List;
-
 import javax.inject.Inject
 
 import org.apache.onami.persist.EntityManagerProvider
 import org.apache.onami.persist.Transactional
+import org.apache.shiro.authz.annotation.RequiresRoles
 
 import com.jdm.ojug.shirotalk.domain.User
 
@@ -36,6 +35,7 @@ class UserDaoImpl implements UserDao {
 
 	@Override
 	@Transactional
+	@RequiresRoles("ADMIN")
 	public List<User> fetchAllUsers() {
 		return em.get().createQuery("from User").getResultList();
 	}

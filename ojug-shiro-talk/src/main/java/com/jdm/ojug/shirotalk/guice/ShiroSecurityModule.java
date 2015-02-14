@@ -3,6 +3,10 @@ package com.jdm.ojug.shirotalk.guice;
 import javax.inject.Singleton;
 import javax.servlet.ServletContext;
 
+import org.apache.shiro.authc.Authenticator;
+import org.apache.shiro.authc.pam.AuthenticationStrategy;
+import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.guice.web.ShiroWebModule;
 
 import com.google.inject.name.Names;
@@ -19,15 +23,21 @@ public class ShiroSecurityModule extends ShiroWebModule {
 	protected void configureShiroWeb() {
 
 		bindRealm().toProvider(AppSecurityProvider.class).in(Singleton.class);
-		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to("/#/login");
-		bindConstant().annotatedWith(Names.named("logout.redirectUrl")).to("/#/login");
+		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to(
+				"/#/login");
+		bindConstant().annotatedWith(Names.named("logout.redirectUrl")).to(
+				"/#/login");
+
+		bind(Authenticator.class).toInstance(new ModularRealmAuthenticator());
+		bind(AuthenticationStrategy.class).to(FirstSuccessfulStrategy.class);
 
 		addFilterChain("/api/logout", LOGOUT);
 		addFilterChain("/api/helloworld", AUTHC_BASIC);
 		addFilterChain("/api/login", ANON);
-		
+		addFilterChain("/api/admin/**", AUTHC_BASIC, config(ROLES, "ADMIN"));
+
 		addFilterChain("/**", AUTHC);
-		
+
 	}
 
 }

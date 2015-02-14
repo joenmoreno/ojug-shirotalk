@@ -4,6 +4,8 @@ import javax.inject.Inject
 import javax.inject.Provider
 import javax.ws.rs.GET
 import javax.ws.rs.Path
+import javax.ws.rs.Produces
+import javax.ws.rs.core.MediaType
 
 import com.jdm.ojug.shirotalk.dao.UserDao
 import com.jdm.ojug.shirotalk.domain.User
@@ -19,6 +21,7 @@ class AdminResource {
 	
 	@GET
 	@Path("users")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> fetchAllUsers() {
 		return userDao.get().fetchAllUsers();
 	}

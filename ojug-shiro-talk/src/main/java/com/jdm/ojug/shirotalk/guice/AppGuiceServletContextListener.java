@@ -7,6 +7,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebListener;
 
+import org.apache.shiro.guice.aop.ShiroAopModule;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -48,6 +50,7 @@ public class AppGuiceServletContextListener extends GuiceServletContextListener 
 
 		MODULES.add(new AppServletModule());
 		MODULES.add(new AppPersistenceModule());
+		MODULES.add(new ShiroAopModule());
 		MODULES.add(new ShiroSecurityModule(servletContext));
 
 		INJECTOR = Guice.createInjector(MODULES);
