@@ -15,10 +15,9 @@ class KeepAliveResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getHello() {
+	public Response keepAlive() {
 		Subject currentUser = SecurityUtils.getSubject()
 		Session session = currentUser.getSession(false)
-		
 		session?.touch()
 		return Response.ok().build()
 	}
