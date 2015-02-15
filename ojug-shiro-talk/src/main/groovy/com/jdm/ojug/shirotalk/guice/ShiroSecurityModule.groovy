@@ -14,7 +14,6 @@ public class ShiroSecurityModule extends ShiroWebModule {
 		super(servletContext);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void configureShiroWeb() {
 
