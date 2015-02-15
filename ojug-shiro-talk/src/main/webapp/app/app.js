@@ -2,6 +2,7 @@
 
 angular.module('shirotalk', [ 
 	'ui.bootstrap',
+	'ngIdle',
 	'shirotalk.login',
 	'shirotalk.dashboard',
 	'shirotalk.routes',
@@ -67,8 +68,8 @@ angular.module('shirotalk', [
         return this;
     })
 
-	.controller('mainController', ['$scope', '$state', 'AuthService', 'Session',
-        function ($scope, $state, AuthService, Session) {
+	.controller('mainController', ['$scope', '$state', 'AuthService', 'Session', 'Idle', 'Keepalive', '$log',
+        function ($scope, $state, AuthService, Session, Idle, Keepalive, $log) {
 			$scope.isCollapsed = true;
 
             $scope.isAuthenticated = function() {
@@ -85,15 +86,44 @@ angular.module('shirotalk', [
 
 
             $scope.logout = function () {
+            	Idle.unwatch();
+            	Keepalive.stop();
                 AuthService.logout()
-	                .success(function (data) {
+	                .then(function (data) {
+	                	Session.destroy();
 	                    $state.go('login');
-	                })
-	                .error(function (error) {
-	                	$state.go('login');
 	                });
             };
+            
+            $scope.$on('IdleStart', function() {
+            	$log.debug('IdleStart');
+            });
 
+            $scope.$on('IdleWarn', function(e, countdown) {
+            	$log.debug('IdleWarn');
+            });
+
+            $scope.$on('IdleTimeout', function() {
+            	$log.debug('IdleTimeout. Logging user out.');
+            	$scope.logout();
+            });
+
+            $scope.$on('IdleEnd', function() {
+            	$log.debug('IdleEnd');
+            });
+
+            $scope.$on('Keepalive', function() {
+            	$log.debug('Keepalive');
+            });
+
+    }])
+    
+    .config(['IdleProvider', 'KeepaliveProvider', function(IdleProvider, KeepaliveProvider) {
+        // configure Idle settings
+        IdleProvider.idle(60); // in seconds
+        IdleProvider.timeout(20); // in seconds
+        KeepaliveProvider.interval(15); // in seconds
+        KeepaliveProvider.http('api/ka');
     }])
     
     .run(function ($rootScope, AuthService, Session, $state, $log) {

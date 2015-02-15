@@ -20,14 +20,20 @@ public class ShiroSecurityModule extends ShiroWebModule {
 
 		bindRealm().toProvider(AppSecurityProvider.class).in(Singleton.class);
 		
+		//Set Session Timeout to 30minutes
+		bindConstant().annotatedWith(Names.named("shiro.globalSessionTimeout")).to(1800000L);
+		
 		bindConstant().annotatedWith(Names.named("shiro.loginUrl")).to(
 				"/#/login");
 		bindConstant().annotatedWith(Names.named("logout.redirectUrl")).to(
 				"/#/login");
 
-		addFilterChain("/api/logout", LOGOUT);
-		addFilterChain("/api/helloworld", AUTHC_BASIC);
+		addFilterChain("/api/ka", ANON);
 		addFilterChain("/api/login", ANON);
+		
+		addFilterChain("/api/logout", LOGOUT);
+		
+		addFilterChain("/api/helloworld", AUTHC_BASIC, config(ROLES, "ADMIN"));
 		addFilterChain("/api/admin/**", AUTHC_BASIC, config(ROLES, "ADMIN"));
 
 		addFilterChain("/**", AUTHC);

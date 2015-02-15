@@ -20,6 +20,7 @@
     <script type="text/javascript" src="assets/libs/spin/2.0.1/spin.min.js"></script>
     <script type="text/javascript" src="assets/libs/ladda/0.9.4/ladda.min.js"></script>
     <script type="text/javascript" src="assets/libs/angular-ladda/0.1.9/angular-ladda.min.js"></script>
+    <script type="text/javascript" src="assets/libs/ng-idle/0.3.5/angular-idle.js"></script>
     
     <script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/app.routes.js"></script>
@@ -40,7 +41,7 @@
 			<ul class="nav navbar-nav">
 				<li ui-sref-active="active" ng-if="!isAuthenticated()"><a ui-sref="login">Login</a></li>
 			    <li ui-sref-active="active" ng-if="isAuthenticated()"><a ui-sref="dashboard">Dashboard</a></li>
-				<li ui-sref-active="active" class="dropdown" ng-if="isAuthenticated() && hasRole('admin')">
+				<li ui-sref-active="active" class="dropdown" ng-if="isAuthenticated() && hasRole('ADMIN')">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a ui-sref="admin.usermanagement">User Management</a></li>
@@ -49,7 +50,7 @@
 				<li ui-sref-active="active"><a ui-sref="about">About</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated()">
-				<li class="dropdown">
+				<li ui-sref-active="active" class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{username()}} <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a ui-sref="myaccount.accountdetail">My Account</a></li>

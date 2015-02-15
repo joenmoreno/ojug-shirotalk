@@ -1,8 +1,8 @@
 "use strict";
 angular.module('shirotalk.login', [])
 
-    .controller('LoginController', ['$scope', 'AuthService', 'Session', '$state',
-        function ($scope, AuthService, Session, $state) {
+    .controller('LoginController', ['$scope', 'AuthService', 'Session', '$state', 'Idle',
+        function ($scope, AuthService, Session, $state, Idle) {
             $scope.config = {
                 loading: false
             };
@@ -11,8 +11,8 @@ angular.module('shirotalk.login', [])
                     .success(function (data) {
                         $scope.config.loading = false;
                         Session.createUser(data.username, data.firstName, data.email, data.userRoles);
+                        Idle.watch();
                         $state.go('dashboard');
-
                     })
                     .error(function (error) {
                         $scope.config.loading = false;

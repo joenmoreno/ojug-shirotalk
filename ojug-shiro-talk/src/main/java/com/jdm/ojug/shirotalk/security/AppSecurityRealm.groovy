@@ -29,6 +29,7 @@ class AppSecurityRealm extends AuthorizingRealm {
 		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(Sha256Hash.ALGORITHM_NAME)
 		matcher.setStoredCredentialsHexEncoded(false)
 		matcher.setHashIterations(1024)
+		
 		setCredentialsMatcher(matcher)
 	}
 
