@@ -7,6 +7,7 @@ import static org.junit.Assert.*
 import org.apache.onami.persist.PersistenceService
 import org.junit.AfterClass
 import org.junit.BeforeClass
+import org.junit.Ignore
 import org.junit.Test
 
 import com.google.inject.Guice
@@ -17,7 +18,7 @@ import com.jdm.ojug.shirotalk.domain.Role
 import com.jdm.ojug.shirotalk.domain.User
 import com.jdm.ojug.shirotalk.guice.AppPersistenceModule
 
-//@Ignore
+@Ignore
 class DataSeed {
 
 	private static Injector i
