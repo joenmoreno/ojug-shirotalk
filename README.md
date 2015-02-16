@@ -1,2 +1,2 @@
 # ojug-shirotalk
-OJUG Talk about Shiro Web Security
+OJUG Talk about Apache Shiro Application Security Framework
