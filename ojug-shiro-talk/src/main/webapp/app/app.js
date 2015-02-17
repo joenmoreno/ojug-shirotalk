@@ -120,9 +120,9 @@ angular.module('shirotalk', [
     
     .config(['IdleProvider', 'KeepaliveProvider', function(IdleProvider, KeepaliveProvider) {
         // configure Idle settings
-        IdleProvider.idle(60); // in seconds
-        IdleProvider.timeout(20); // in seconds
-        KeepaliveProvider.interval(15); // in seconds
+        IdleProvider.idle(1560); // in seconds = 26 minutes
+        IdleProvider.timeout(120); // in seconds = 2 minutes
+        KeepaliveProvider.interval(1200); // in seconds = 20 minutes
         KeepaliveProvider.http('api/ka');
     }])
     

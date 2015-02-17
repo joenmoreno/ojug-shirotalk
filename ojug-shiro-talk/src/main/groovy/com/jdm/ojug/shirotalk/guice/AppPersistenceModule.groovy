@@ -6,7 +6,7 @@ public class AppPersistenceModule extends PersistenceModule {
 
 	@Override
 	protected void configurePersistence() {
-		bindApplicationManagedPersistenceUnit( "unit" );
+		bindApplicationManagedPersistenceUnit( "hsqldb" );
 	}
 
 }

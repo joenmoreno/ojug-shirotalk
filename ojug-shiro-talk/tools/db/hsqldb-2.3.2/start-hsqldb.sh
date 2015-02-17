@@ -1,0 +1,1 @@
+java -cp ./hsqldb-2.3.2.jar org.hsqldb.server.Server --database.0 file:ojug-shirotalk --dbname.0 ojug-shirotalk

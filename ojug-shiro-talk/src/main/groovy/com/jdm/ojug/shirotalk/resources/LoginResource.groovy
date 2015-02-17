@@ -54,7 +54,8 @@ class LoginResource {
 		Subject currentUser = SecurityUtils
 				.getSubject();
 
-		if (currentUser.isAuthenticated()) {
+		
+		if (currentUser.isAuthenticated() && currentUser.getPrincipal().equals(username)) {
 			loginResult = true
 		} else {
 
